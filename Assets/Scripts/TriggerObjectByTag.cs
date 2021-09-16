@@ -18,10 +18,7 @@ public class TriggerObjectByTag : MonoBehaviour
         valueChest = gameObject.CompareTag("Chest");
         valueBillboardTag = gameObject.CompareTag("BillboardTag");
 
-        var objs = this.gameObject.GetComponentInChildren<GameObject>();
-        Debug.Log("s");
-        var s = this.gameObject.GetComponentInChildren<GameObject>().name;
-        Debug.Log(s);
+        var objs = this.gameObject.GetComponentInChildren<Transform>();
 
     }
 
