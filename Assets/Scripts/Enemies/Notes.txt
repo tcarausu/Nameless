@@ -1,0 +1,2 @@
+Spider enemy:
+Stay from player. If enter radius, move opposite of player position. 
