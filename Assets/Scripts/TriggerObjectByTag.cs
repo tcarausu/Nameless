@@ -4,22 +4,16 @@ using UnityEngine;
 
 public class TriggerObjectByTag : MonoBehaviour
 {
-    [SerializeField] private GameObject closed { get; set; }
-    [SerializeField] private GameObject opened { get; set; }
-    [SerializeField] private List<GameObject> takeQuests;
+    private List<GameObject> takeQuests;
 
-    private bool valueChest, valueBillboardTag;
+    private bool valueBillboardTag;
 
     private bool isTriggered { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
-        valueChest = gameObject.CompareTag("Chest");
         valueBillboardTag = gameObject.CompareTag("BillboardTag");
-
-        var objs = this.gameObject.GetComponentInChildren<Transform>();
-
     }
 
 
@@ -40,15 +34,18 @@ public class TriggerObjectByTag : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (valueChest)
-            {
-                closed.SetActive(false);
-                opened.SetActive(true);
-            }
-
             if (valueBillboardTag)
             {
                 isTriggered = true;
+
+                var billboardParent = this.transform.parent.gameObject;
+                var questsAndTile = billboardParent.GetComponentInChildren<Transform>();
+
+                Debug.Log(billboardParent.name);
+                foreach (Transform item in questsAndTile)
+                {
+                    Debug.Log(item.name);
+                }
             }
         }
     }
@@ -57,15 +54,14 @@ public class TriggerObjectByTag : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (valueChest)
-            {
-                closed.SetActive(true);
-                opened.SetActive(false);
-            }
-
             if (valueBillboardTag)
             {
                 isTriggered = false;
+
+                // var billboardParent = this.transform.parent.gameObject;
+                // var questsAndTile = this.gameObject.GetComponentInChildren<Transform>();
+
+                // Debug.Log(billboardParent.name);
             }
         }
     }
