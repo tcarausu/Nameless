@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class MainCameraController : MonoBehaviour
 {
 
-    public static CameraController instance;
+    public static MainCameraController instance;
     public float moveSpeedWhenRoomChange;
 
     private void Awake()

@@ -41,10 +41,20 @@ public class TriggerObjectByTag : MonoBehaviour
                 var billboardParent = this.transform.parent.gameObject;
                 var questsAndTile = billboardParent.GetComponentInChildren<Transform>();
 
-                Debug.Log(billboardParent.name);
                 foreach (Transform item in questsAndTile)
                 {
-                    Debug.Log(item.name);
+                    if (item.gameObject.activeSelf)
+                    {
+                        var tag = item.tag;
+                        Debug.Log(tag);
+
+                        if (tag.CompareTo("BillboardTag") == 1)
+                        {
+                            Debug.Log(item.name + true);
+                        }
+
+                        Debug.Log(item.name + true);
+                    }
                 }
             }
         }
