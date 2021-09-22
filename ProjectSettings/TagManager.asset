@@ -7,6 +7,7 @@ TagManager:
   - BillboardTag
   - Chest
   - Notice
+  - UI_QuestTag
   layers:
   - Default
   - TransparentFX
