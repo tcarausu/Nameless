@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    internal QuestItem currentQuest { get; set; }
+
     public int highscore = 0;
     public GameObject pickup;
     public float timer = 0;
@@ -27,7 +29,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame

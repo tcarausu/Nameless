@@ -7,7 +7,7 @@ public class QuestDisplay : MonoBehaviour
 {
     public QuestItem questItem;
 
-    public Text title, difficulty, description;
+    public Text   description, difficulty, title;
     public Image questTaskDestination;
 
     // Start is called before the first frame update

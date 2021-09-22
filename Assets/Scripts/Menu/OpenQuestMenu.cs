@@ -11,16 +11,13 @@ public class OpenQuestMenu : MonoBehaviour
     public QuestItem neko, flower;
 
     private QuestDisplay questToDisplay;
+    private GameManager gameManager;
 
     // private GameObject thePlayer;
-
-
-    // private PlayerBehaviourScript playerScript;
 
     private void Awake()
     {
         // thePlayer = GameObject.Find("Player");
-        // playerScript = thePlayer.GetComponent<PlayerBehaviourScript>();
     }
 
     void Start()
@@ -28,7 +25,6 @@ public class OpenQuestMenu : MonoBehaviour
         Time.timeScale = 1f;
 
         questToDisplay = questMenuUI.GetComponentInChildren<QuestDisplay>();
-        print(questToDisplay.description.text);
     }
 
     void Update()
@@ -60,10 +56,7 @@ public class OpenQuestMenu : MonoBehaviour
 
         Time.timeScale = 1f;
         gameisPaused = false;
-
-        // playerScript.enabled = true;
     }
-
 
     public void questPauseGame()
     {
@@ -71,11 +64,7 @@ public class OpenQuestMenu : MonoBehaviour
 
         Time.timeScale = 0f;
         gameisPaused = true;
-
-
-        // playerScript.enabled = false;
     }
-
 
     private void FixedUpdate()
     {
@@ -87,6 +76,8 @@ public class OpenQuestMenu : MonoBehaviour
 
     private void swapQuestData(QuestItem itemToSwap)
     {
+        gameManager.currentQuest = itemToSwap;
+
         questToDisplay.questItem = itemToSwap;
         questToDisplay.title.text = itemToSwap.title;
         questToDisplay.difficulty.text = itemToSwap.difficulty;

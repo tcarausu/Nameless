@@ -10,10 +10,18 @@ public class TriggerObjectByTag : MonoBehaviour
 
     private bool isTriggered { get; set; }
 
+    private void Awake()
+    {
+        takeQuests = new List<GameObject>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         valueBillboardTag = gameObject.CompareTag("BillboardTag");
+
+
+        getActiveQuestNotices();
     }
 
 
@@ -22,10 +30,11 @@ public class TriggerObjectByTag : MonoBehaviour
     {
         if (isTriggered && Input.GetKeyDown(KeyCode.X))
         {
-            Debug.Log(takeQuests.Count);
-            Destroy(takeQuests[0]);
-            Debug.Log(takeQuests.Count);
-            // takeQuest.SetActive(false);
+            if (takeQuests.Count > 0)
+            {
+                Destroy(takeQuests[0]);
+                takeQuests.Remove(takeQuests[0]);
+            }
         }
     }
 
@@ -38,26 +47,34 @@ public class TriggerObjectByTag : MonoBehaviour
             {
                 isTriggered = true;
 
-                var billboardParent = this.transform.parent.gameObject;
-                var questsAndTile = billboardParent.GetComponentInChildren<Transform>();
+                getActiveQuestNotices();
+            }
+        }
+    }
 
-                foreach (Transform item in questsAndTile)
+    private void getActiveQuestNotices()
+    {
+        var billboardParent = this.transform.parent.gameObject;
+        var questsAndTile = billboardParent.GetComponentInChildren<Transform>();
+
+        foreach (Transform item in questsAndTile)
+        {
+            var itemObject = item.gameObject;
+            if (itemObject.activeSelf)
+            {
+                if (item.CompareTag("Notice"))
                 {
-                    if (item.gameObject.activeSelf)
+                    if (!takeQuests.Contains(itemObject))
                     {
-                        var tag = item.tag;
-                        Debug.Log(tag);
-
-                        if (tag.CompareTo("BillboardTag") == 1)
-                        {
-                            Debug.Log(item.name + true);
-                        }
-
-                        Debug.Log(item.name + true);
+                        takeQuests.Add(itemObject);
                     }
+
+                    print(item.name + true);
                 }
             }
         }
+
+        print(takeQuests.Count);
     }
 
     void OnTriggerExit2D(Collider2D other)
