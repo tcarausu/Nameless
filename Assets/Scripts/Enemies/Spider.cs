@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spider : Enemy
 {
     private float dist;
-    private int buffer, bufferMax = 150;
+    // private int buffer, bufferMax = 150;
     private Vector3 dir;
     private bool moveOver;
     public Object web;
@@ -79,7 +79,7 @@ public class Spider : Enemy
         GameObject projectile = Instantiate(web, this.transform.position, this.transform.rotation) as GameObject;
         projectile.layer = 11;
         projectile.GetComponent<Web>().target = player;
-        buffer = 0;
+        // buffer = 0;
     }
 
     private void OnCollisionStay2D(Collision2D other)

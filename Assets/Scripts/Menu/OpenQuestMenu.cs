@@ -8,10 +8,14 @@ public class OpenQuestMenu : MonoBehaviour
     [SerializeField] private GameObject questMenuUI;
     public static bool gameisPaused = false;
 
+    public QuestItem neko, flower;
+
+    private QuestDisplay questToDisplay;
 
     // private GameObject thePlayer;
 
-    private PlayerBehaviourScript playerScript;
+
+    // private PlayerBehaviourScript playerScript;
 
     private void Awake()
     {
@@ -22,6 +26,9 @@ public class OpenQuestMenu : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
+
+        questToDisplay = questMenuUI.GetComponentInChildren<QuestDisplay>();
+        print(questToDisplay.description.text);
     }
 
     void Update()
@@ -36,6 +43,15 @@ public class OpenQuestMenu : MonoBehaviour
                 questPauseGame();
         }
 
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            swapQuestData(flower);
+        }
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            swapQuestData(neko);
+        }
     }
 
     public void questResumeGame()
@@ -45,7 +61,7 @@ public class OpenQuestMenu : MonoBehaviour
         Time.timeScale = 1f;
         gameisPaused = false;
 
-        playerScript.enabled = true;
+        // playerScript.enabled = true;
     }
 
 
@@ -57,7 +73,7 @@ public class OpenQuestMenu : MonoBehaviour
         gameisPaused = true;
 
 
-        playerScript.enabled = false;
+        // playerScript.enabled = false;
     }
 
 
@@ -67,5 +83,14 @@ public class OpenQuestMenu : MonoBehaviour
         {
             return;
         }
+    }
+
+    private void swapQuestData(QuestItem itemToSwap)
+    {
+        questToDisplay.questItem = itemToSwap;
+        questToDisplay.title.text = itemToSwap.title;
+        questToDisplay.difficulty.text = itemToSwap.difficulty;
+        questToDisplay.description.text = itemToSwap.description;
+        questToDisplay.questTaskDestination.sprite = itemToSwap.questTarget;
     }
 }

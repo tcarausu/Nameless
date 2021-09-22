@@ -13,7 +13,7 @@ public class QuestDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        title.text = questItem.nameOfQuest;
+        title.text = questItem.title;
         difficulty.text = questItem.difficulty;
         description.text = questItem.description;
 

@@ -14,7 +14,7 @@ public class PauseMenu : MonoBehaviour
 
     private PlayerBehaviourScript playerScript;
 
-    private bool isMeleeScriptActive = true;
+    // private bool isMeleeScriptActive = true;
 
     private void Awake()
     {
@@ -117,7 +117,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OpenMenu()
     {
-        isMeleeScriptActive = true;
+        // isMeleeScriptActive = true;
 
         SceneManager.LoadScene(0);
     }

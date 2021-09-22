@@ -6,8 +6,8 @@ using UnityEngine;
 public class QuestItem : ScriptableObject
 {
 
-    public Sprite questSprite,questTarget;
-    public string nameOfQuest,difficulty, description;
+    public Sprite questTarget;
+    public string title,difficulty, description;
     // public float timeToComplete;
 
 }

@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23055d0f778231e499eb2d5cdd3a42d6, type: 3}
   m_Name: quest_PickUpFlower
   m_EditorClassIdentifier: 
-  questSprite: {fileID: 21300000, guid: a8d09b485e15e0b408c888f19c012e7d, type: 3}
   questTarget: {fileID: 21300000, guid: 873b7aecedf361e43bdbe8249da9984d, type: 3}
-  nameOfQuest: Pick Up 3 Blue Flowers
+  title: Pick Up 3 Yellow Flowers
   difficulty: easy
-  description: You have to go and pick up 3 Blue flowers that are situated at the
+  description: You have to go and pick up 3 Yellow flowers that are situated at the
     top of the map.

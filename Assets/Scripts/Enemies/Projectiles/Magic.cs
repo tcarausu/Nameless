@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Magic : Projectile
 {
-    private bool osc = false;
+    // private bool osc = false;
     private Vector2 tempDir;
 
 
