@@ -11,7 +11,7 @@ public class OpenQuestMenu : MonoBehaviour
     public QuestItem neko, flower;
 
     private QuestDisplay questToDisplay;
-    private GameManager gameManager;
+    public GameManager gameManager;
 
     // private GameObject thePlayer;
 
@@ -41,12 +41,18 @@ public class OpenQuestMenu : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.M))
         {
-            swapQuestData(flower);
+            if (gameManager != null)
+            {
+                swapQuestData(flower);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.N))
         {
-            swapQuestData(neko);
+            if (gameManager != null)
+            {
+                swapQuestData(neko);
+            }
         }
     }
 

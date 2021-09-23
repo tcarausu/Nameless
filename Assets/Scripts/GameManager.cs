@@ -9,10 +9,10 @@ public class GameManager : MonoBehaviour
 
     internal QuestItem currentQuest { get; set; }
 
-    public int highscore = 0;
-    public GameObject pickup;
-    public float timer = 0;
-    public float timeToSpawn = 5f;
+    // public int highscore = 0;
+    // public GameObject pickup;
+    // public float timer = 0;
+    // public float timeToSpawn = 5f;
 
     void Awake()
     {
@@ -23,12 +23,15 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(this.gameObject);
+
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        // Cursor.visible = true;
+        // Cursor.lockState = CursorLockMode.None;
     }
 
     // Update is called once per frame

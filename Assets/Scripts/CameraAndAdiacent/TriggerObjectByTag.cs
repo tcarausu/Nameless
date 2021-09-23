@@ -30,11 +30,16 @@ public class TriggerObjectByTag : MonoBehaviour
     {
         if (isTriggered && Input.GetKeyDown(KeyCode.X))
         {
+            // Cursor.visible = true;
+            // Cursor.lockState = CursorLockMode.None;
+
             if (takeQuests.Count > 0)
             {
                 Destroy(takeQuests[0]);
                 takeQuests.Remove(takeQuests[0]);
             }
+            // Cursor.visible = false;
+            // Cursor.lockState = CursorLockMode.None;
         }
     }
 
@@ -69,12 +74,12 @@ public class TriggerObjectByTag : MonoBehaviour
                         takeQuests.Add(itemObject);
                     }
 
-                    print(item.name + true);
+                    // print(item.name + true);
                 }
             }
         }
 
-        print(takeQuests.Count);
+        // print(takeQuests.Count);
     }
 
     void OnTriggerExit2D(Collider2D other)

@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class PlayerBehaviourScript : MonoBehaviour
+public class PlayerBehaviourScriptOld : MonoBehaviour
 {
 
     public Rigidbody2D rb;
     public Animator animator;
-
 
     private Vector2 movement;
     public float moveSpeed = 5f;
@@ -26,11 +25,17 @@ public class PlayerBehaviourScript : MonoBehaviour
     private const string verticalConst = "Vertical";
     private const string speedConst = "Speed";
 
+    //weapon
+    private Transform weaponTransform;
+    private Animator weaponAnimator;
+
     //run timer
     private float waitTime = 1.0f;
     private float timer = 0.0f;
+    //private bool isRunning = false;
 
     //ruuning and stamina
+    public StaminaScript stamScript;
     float staminaValue;
     string staminaValueText;
 
@@ -40,14 +45,43 @@ public class PlayerBehaviourScript : MonoBehaviour
     private float staminaRegenRate = 1f;
 
     // private Inventory inventory;
-    public static PlayerBehaviourScript Instance { get; private set; }
+    public static PlayerBehaviourScriptOld Instance { get; private set; }
+    public GameObject UI_weapPos1, UI_weapPos2;
 
     private void Awake()
     {
+        //Application.targetFrameRate = -1; is unlimited
+
         Application.targetFrameRate = 120;
         sr = GetComponent<SpriteRenderer>();
         playerAudioSource = GetComponent<AudioSource>();
+
+        GameObject healthstam = GameObject.Find("HealthAndStamina");
+
+        stamScript = healthstam.GetComponent<StaminaScript>();
+        // playerShootBowScript = GetComponent<PlayerShootBow>();
+        // playerMeleeScript = GetComponent<PlayerMelee>();
+
+        maxStaminaValue = float.Parse(stamScript.textMesh.text);
+
+        weaponTransform = transform.Find("Aim/Weapon");
+        weaponAnimator = weaponTransform.GetComponent<Animator>();
     }
+
+    //void LateUpdate()
+    //{
+
+    //    if (playerMeleeScript.isFacingLeft)
+    //    {
+    //        //weaponAnimator.SetTrigger("swapHandToLeft");
+    //        weaponAnimator.SetTrigger("swapHandToRight");
+    //    }
+    //    else
+    //    {
+    //        //weaponAnimator.SetTrigger("swapHandToLeft");
+    //        weaponAnimator.SetTrigger("swapHandToRight");
+    //    }
+    //}
 
     private void Start()
     {
@@ -59,6 +93,10 @@ public class PlayerBehaviourScript : MonoBehaviour
     {
         //if (!PauseMenu.gameisPaused)
         //{
+            staminaValueText = stamScript.textMesh.text;
+            staminaValue = float.Parse(staminaValueText);
+
+
             CharMovement();
 
             UpdateDirection();
@@ -91,9 +129,7 @@ public class PlayerBehaviourScript : MonoBehaviour
 
     private void checkMovementOrAttackSounds()
     {
-        // isMoving = rb.velocity.x != 0;
-        if ((rb.velocity.x != 0)||(rb.velocity.y != 0))
-        // if (rb.velocity.x != 0)
+        if (rb.velocity.x != 0)
         {
             isMoving = true;
         }
@@ -108,7 +144,10 @@ public class PlayerBehaviourScript : MonoBehaviour
         }
         else
         {
-                playerAudioSource.Stop();
+            // if (!playerShootBowScript.getIsShooting() && !playerMeleeScript.getIsAttacking())
+            // {
+            //     playerAudioSource.Stop();
+            // }
         }
     }
 
@@ -122,19 +161,30 @@ public class PlayerBehaviourScript : MonoBehaviour
     private void run()
     {
 
+        //if (Input.GetKey(KeyCode.LeftShift))
+        //{
+        //    moveSpeed = 10f;
+
+        //    timeToRun();
+        //}
+        //else
+        //{
+        //    isRunning = false;
+
         if (staminaValue < 100)
         {
 
             if (staminaValue != maxStaminaValue && !isRegenStamina)
             {
-                // if (!stamScript.hasAttacked)
-                // {
-                    // StartCoroutine(RegainStaminaOverTime());
-                // }
+                if (!stamScript.hasAttacked)
+                {
+                    StartCoroutine(RegainStaminaOverTime());
+                }
             }
         }
 
         moveSpeed = 5f;
+        //}
 
     }
 
@@ -152,8 +202,8 @@ public class PlayerBehaviourScript : MonoBehaviour
 
                 if (valueInt >= 0)
                 {
-                    // stamScript.textMesh.text = valueInt.ToString();
-                    // stamScript.setStamina(valueInt);
+                    stamScript.textMesh.text = valueInt.ToString();
+                    stamScript.setStamina(valueInt);
 
                     Time.timeScale = 1f;
 
@@ -174,27 +224,27 @@ public class PlayerBehaviourScript : MonoBehaviour
             )
         {
 
-            // StaminaReg();
+            StaminaReg();
 
             yield return new WaitForSeconds(staminaRegenRate / 2);
         }
         isRegenStamina = false;
     }
 
-    // public void StaminaReg()
-    // {
-        // staminaValue += staminaRegenRate;
+    public void StaminaReg()
+    {
+        staminaValue += staminaRegenRate;
 
-        // stamScript.textMesh.text = staminaValue.ToString();
+        stamScript.textMesh.text = staminaValue.ToString();
 
-        // if (maxStaminaValue > staminaValue)
-        // {
-            // stamScript.setStamina(staminaValue);
-        // }
-        // else
-            // stamScript.setStamina(maxStaminaValue);
+        if (maxStaminaValue > staminaValue)
+        {
+            stamScript.setStamina(staminaValue);
+        }
+        else
+            stamScript.setStamina(maxStaminaValue);
 
-    // }
+    }
 
     private void UpdateDirection()
     {
@@ -229,8 +279,8 @@ public class PlayerBehaviourScript : MonoBehaviour
         if (collider.gameObject.tag == "Weapon")
         {
             // ItemWorld itemWorld = collider.GetComponent<ItemWorld>();
-            // Sprite itemSprite = collider.GetComponent<SpriteRenderer>().sprite;
-            //
+            Sprite itemSprite = collider.GetComponent<SpriteRenderer>().sprite;
+
             // SwapWeaponSprite currentWeapon = gameObject.GetComponentInChildren<SwapWeaponSprite>();
 
             // if (itemWorld != null)
